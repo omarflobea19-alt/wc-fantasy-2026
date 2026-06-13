@@ -386,14 +386,19 @@
       <rect x="75" y="0" width="150" height="60" fill="none" stroke="white" stroke-width="1.5"/>
       <rect x="75" y="340" width="150" height="60" fill="none" stroke="white" stroke-width="1.5"/>
     </svg>
-    <!-- Portero -->
-    <div class="field-row" id="row-por"></div>
-    <!-- Defensas -->
-    <div class="field-row" id="row-def"></div>
-    <!-- Medios -->
-    <div class="field-row" id="row-med"></div>
-    <!-- Delanteros + flex -->
+    <!-- Labels de posición -->
+    <div style="display:flex;justify-content:space-between;padding:0 8px;margin-bottom:4px;position:relative;z-index:1">
+      <span style="font-size:9px;color:rgba(255,255,255,0.5);text-transform:uppercase;letter-spacing:1px">Formación 1-4-3-2+FLEX</span>
+      <span style="font-size:9px;color:var(--flex)">🟢 FLEX = cualquier pos.</span>
+    </div>
+    <!-- DEL + FLEX (arriba del campo - ataque) -->
     <div class="field-row" id="row-del"></div>
+    <!-- Medios -->
+    <div class="field-row" id="row-med" style="margin-top:4px"></div>
+    <!-- Defensas -->
+    <div class="field-row" id="row-def" style="margin-top:4px"></div>
+    <!-- Portero -->
+    <div class="field-row" id="row-por" style="margin-top:4px"></div>
   </div>
 
   <!-- Banca -->
@@ -471,7 +476,7 @@
       <div class="admin-row"><span class="admin-label">Jornada</span>
         <select class="admin-inp" id="adm-jornada">
           <option value="1">Jornada 1</option><option value="2">Jornada 2</option><option value="3">Jornada 3</option>
-          <option value="4">Octavos</option><option value="5">Cuartos</option><option value="6">Semis</option><option value="7">Final</option>
+          <option value="4">16avos</option><option value="5">Octavos</option><option value="6">Cuartos</option><option value="7">Semis</option><option value="8">Final</option>
         </select>
       </div>
       <button class="btn btn-gold mt8" onclick="savePlayerStats()">💾 Guardar estadísticas</button>
@@ -1211,10 +1216,12 @@ function renderEquipo() {
   squad.forEach(p => posCount[p.pos]++);
   const needs = [];
   if (posCount.POR < 1) needs.push('1 POR');
-  if (posCount.DEF < 3) needs.push(`${3-posCount.DEF} DEF`);
-  if (posCount.MED < 2) needs.push(`${2-posCount.MED} MED`);
-  if (posCount.DEL < 1) needs.push('1 DEL');
-  document.getElementById('eq-needs').textContent = needs.length ? `Necesitas: ${needs.join(', ')}` : '✅ Plantilla completa';
+  if (posCount.DEF < 4) needs.push(`${4-posCount.DEF} DEF`);
+  if (posCount.MED < 3) needs.push(`${3-posCount.MED} MED`);
+  if (posCount.DEL < 2) needs.push(`${2-posCount.DEL} DEL`);
+  const flexCount = squad.length >= 11 ? 1 : 0;
+  const flexNeed = squad.length < 11 ? ' · 1 FLEX' : '';
+  document.getElementById('eq-needs').textContent = needs.length ? `Necesitas: ${needs.join(', ')}${flexNeed}` : '✅ Plantilla completa (1 POR · 4 DEF · 3 MED · 2 DEL · 1 FLEX)';
 
   // Campo visual
   const por = squad.filter(p=>p.pos==='POR');
@@ -1240,10 +1247,36 @@ function renderEquipo() {
     return html;
   };
 
-  document.getElementById('row-por').innerHTML = renderRow(por, 1);
-  document.getElementById('row-def').innerHTML = renderRow(def, Math.min(def.length || 4, 5));
-  document.getElementById('row-med').innerHTML = renderRow(med, Math.min(med.length || 3, 5));
-  document.getElementById('row-del').innerHTML = renderRow(del, Math.min(del.length || 2, 3));
+  // Formación 1-4-3-3 con FLEX
+  // El squad está ordenado: POR, DEF(hasta 4), MED(hasta 3), DEL(hasta 3), FLEX(1)
+  // Titulares = primeros 11 del squad asignados por posición
+  const titPOR = por.slice(0,1);
+  const titDEF = def.slice(0,4);
+  const titMED = med.slice(0,3);
+  const titDEL = del.slice(0,2);
+  // FLEX: puede ser cualquier posición - el jugador 11 de la plantilla
+  const allTitulares = [...titPOR,...titDEF,...titMED,...titDEL];
+  const flexPlayer = squad.find(p => !allTitulares.includes(p) && squad.indexOf(p) < 11) || null;
+
+  // Campo visual: ataque arriba, portero abajo (vista táctica)
+  // Fila POR (1) - abajo
+  document.getElementById('row-por').innerHTML = renderRow(titPOR, 1);
+  // Fila DEF (4 slots)
+  document.getElementById('row-def').innerHTML = renderRow(titDEF, 4);
+  // Fila MED (3 slots)
+  document.getElementById('row-med').innerHTML = renderRow(titMED, 3);
+  // Fila DEL + FLEX (2 DEL + 1 FLEX) - arriba
+  const delFlexHtml = renderRow(titDEL, 2) + `
+    <div class="field-player" onclick="${flexPlayer ? `playerAction('${flexPlayer.id}')` : ''}">
+      <div class="player-circle ${flexPlayer ? (flexPlayer.id===capt?'captain':flexPlayer.id===vice?'vice':'') : 'empty'}" 
+           style="border-color:var(--flex);${flexPlayer?'':'border-style:dashed'}">
+        ${flexPlayer ? flexPlayer.flag : '+'}
+      </div>
+      <div class="player-label" style="color:var(--flex);font-size:9px">
+        ${flexPlayer ? flexPlayer.name.split(' ').pop() : 'FLEX'}
+      </div>
+    </div>`;
+  document.getElementById('row-del').innerHTML = delFlexHtml;
 
   // Banca (últimos 4)
   const starters = squad.slice(0, 11);
@@ -1321,7 +1354,7 @@ function renderPuntos() {
   const jornadas = ['1','2','3','4','5','6','7'];
   const jTab = document.getElementById('jornada-tabs');
   const activeJ = jTab.querySelector('.j-tab.active')?.dataset.j || '1';
-  jTab.innerHTML = [['1','J1'],['2','J2'],['3','J3'],['4','Oct.'],['5','Ctos.'],['6','Semi'],['7','Final']].map(([v,l]) =>
+  jTab.innerHTML = [['1','J1'],['2','J2'],['3','J3'],['4','16vos'],['5','8vos'],['6','4tos'],['7','Semi'],['8','Final']].map(([v,l]) =>
     `<button class="j-tab ${v===activeJ?'active':''}" data-j="${v}" onclick="selectJornada('${v}')">${l}</button>`
   ).join('');
 
