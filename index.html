@@ -745,26 +745,41 @@ let selectedAdminPlayer = null;
 // ══════════════════════════════════════════
 function fb() { return window._fb; }
 
+function fbReady() {
+  return new Promise(resolve => {
+    if (window._fb) { resolve(); return; }
+    const check = setInterval(() => {
+      if (window._fb) { clearInterval(check); resolve(); }
+    }, 50);
+    setTimeout(() => { clearInterval(check); resolve(); }, 5000);
+  });
+}
+
 async function fbGet(path) {
+  await fbReady();
   try {
     const snap = await fb().get(fb().ref(fb().db, path));
     return snap.exists() ? snap.val() : null;
-  } catch(e) { return null; }
+  } catch(e) { console.error('fbGet error:', e); return null; }
 }
 
 async function fbSet(path, val) {
+  await fbReady();
   try { await fb().set(fb().ref(fb().db, path), val); return true; }
-  catch(e) { console.error(e); return false; }
+  catch(e) { console.error('fbSet error:', e); return false; }
 }
 
 async function fbUpdate(path, val) {
+  await fbReady();
   try { await fb().update(fb().ref(fb().db, path), val); return true; }
-  catch(e) { console.error(e); return false; }
+  catch(e) { console.error('fbUpdate error:', e); return false; }
 }
 
 function fbListen(path, cb) {
-  fb().onValue(fb().ref(fb().db, path), snap => {
-    cb(snap.exists() ? snap.val() : null);
+  fbReady().then(() => {
+    fb().onValue(fb().ref(fb().db, path), snap => {
+      cb(snap.exists() ? snap.val() : null);
+    });
   });
 }
 
