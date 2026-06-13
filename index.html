@@ -471,7 +471,7 @@
       <div class="admin-row"><span class="admin-label">Jornada</span>
         <select class="admin-inp" id="adm-jornada">
           <option value="1">Jornada 1</option><option value="2">Jornada 2</option><option value="3">Jornada 3</option>
-          <option value="4">16avos</option><option value="5">Octavos</option><option value="6">Cuartos</option><option value="7">Semis</option><option value="8">Final</option>
+          <option value="4">Octavos</option><option value="5">Cuartos</option><option value="6">Semis</option><option value="7">Final</option>
         </select>
       </div>
       <button class="btn btn-gold mt8" onclick="savePlayerStats()">💾 Guardar estadísticas</button>
@@ -670,33 +670,7 @@ const JUGADORES = [
   {id:'col3',name:'Richard Ríos',pos:'MED',team:'Colombia',flag:'🇨🇴',val:7},
   {id:'col4',name:'Davinson Sánchez',pos:'DEF',team:'Colombia',flag:'🇨🇴',val:6},
   {id:'col5',name:'Camilo Vargas',pos:'POR',team:'Colombia',flag:'🇨🇴',val:6},
-  // MEXICO (Convocatoria oficial 2026)
-  {id:'mex1',name:'Guillermo Ochoa',pos:'POR',team:'México',flag:'🇲🇽',val:7},
-  {id:'mex2',name:'Carlos Acevedo',pos:'POR',team:'México',flag:'🇲🇽',val:5},
-  {id:'mex3',name:'Raúl Rangel',pos:'POR',team:'México',flag:'🇲🇽',val:5},
-  {id:'mex4',name:'Jorge Sánchez',pos:'DEF',team:'México',flag:'🇲🇽',val:6},
-  {id:'mex5',name:'Israel Reyes',pos:'DEF',team:'México',flag:'🇲🇽',val:5},
-  {id:'mex6',name:'César Montes',pos:'DEF',team:'México',flag:'🇲🇽',val:6},
-  {id:'mex7',name:'Johan Vásquez',pos:'DEF',team:'México',flag:'🇲🇽',val:6},
-  {id:'mex8',name:'Jesús Gallardo',pos:'DEF',team:'México',flag:'🇲🇽',val:6},
-  {id:'mex9',name:'Mateo Chávez',pos:'DEF',team:'México',flag:'🇲🇽',val:5},
-  {id:'mex10',name:'Edson Álvarez',pos:'DEF',team:'México',flag:'🇲🇽',val:8},
-  {id:'mex11',name:'Erik Lira',pos:'MED',team:'México',flag:'🇲🇽',val:6},
-  {id:'mex12',name:'Orbelín Pineda',pos:'MED',team:'México',flag:'🇲🇽',val:7},
-  {id:'mex13',name:'Álvaro Fidalgo',pos:'MED',team:'México',flag:'🇲🇽',val:7},
-  {id:'mex14',name:'Brian Gutiérrez',pos:'MED',team:'México',flag:'🇲🇽',val:6},
-  {id:'mex15',name:'Luis Romo',pos:'MED',team:'México',flag:'🇲🇽',val:6},
-  {id:'mex16',name:'Obed Vargas',pos:'MED',team:'México',flag:'🇲🇽',val:7},
-  {id:'mex17',name:'Gilberto Mora',pos:'MED',team:'México',flag:'🇲🇽',val:7},
-  {id:'mex18',name:'Luis Chávez',pos:'MED',team:'México',flag:'🇲🇽',val:7},
-  {id:'mex19',name:'Roberto Alvarado',pos:'MED',team:'México',flag:'🇲🇽',val:7},
-  {id:'mex20',name:'César Huerta',pos:'MED',team:'México',flag:'🇲🇽',val:6},
-  {id:'mex21',name:'Alexis Vega',pos:'DEL',team:'México',flag:'🇲🇽',val:6},
-  {id:'mex22',name:'Julián Quiñones',pos:'DEL',team:'México',flag:'🇲🇽',val:6},
-  {id:'mex23',name:'Guillermo Martínez',pos:'DEL',team:'México',flag:'🇲🇽',val:5},
-  {id:'mex24',name:'Armando González',pos:'DEL',team:'México',flag:'🇲🇽',val:5},
-  {id:'mex25',name:'Santiago Giménez',pos:'DEL',team:'México',flag:'🇲🇽',val:8},
-  {id:'mex26',name:'Raúl Jiménez',pos:'DEL',team:'México',flag:'🇲🇽',val:7},
+  // MEXICO — reemplazado abajo
   // USA
   {id:'usa1',name:'Christian Pulisic',pos:'DEL',team:'USA',flag:'🇺🇸',val:8},
   {id:'usa2',name:'Weston McKennie',pos:'MED',team:'USA',flag:'🇺🇸',val:6},
@@ -738,167 +712,152 @@ const JUGADORES = [
   {id:'sen2',name:'Ismaïla Sarr',pos:'DEL',team:'Senegal',flag:'🇸🇳',val:7},
   {id:'sen3',name:'Edouard Mendy',pos:'POR',team:'Senegal',flag:'🇸🇳',val:7},
 
-  // NORUEGA — Haaland y compañía
+  // NORUEGA
   {id:'nor1',name:'Erling Haaland',pos:'DEL',team:'Noruega',flag:'🇳🇴',val:12},
   {id:'nor2',name:'Martin Ødegaard',pos:'MED',team:'Noruega',flag:'🇳🇴',val:10},
   {id:'nor3',name:'Alexander Sørloth',pos:'DEL',team:'Noruega',flag:'🇳🇴',val:7},
   {id:'nor4',name:'Sander Berge',pos:'MED',team:'Noruega',flag:'🇳🇴',val:6},
-  {id:'nor5',name:'Kristian Thorstvedt',pos:'MED',team:'Noruega',flag:'🇳🇴',val:6},
+  {id:'nor5',name:'Ørjan Nyland',pos:'POR',team:'Noruega',flag:'🇳🇴',val:5},
   {id:'nor6',name:'Leo Østigård',pos:'DEF',team:'Noruega',flag:'🇳🇴',val:5},
-  {id:'nor7',name:'Ørjan Nyland',pos:'POR',team:'Noruega',flag:'🇳🇴',val:5},
-  // TURQUÍA — Arda Güler y más
+  // TURQUÍA
   {id:'tur1',name:'Arda Güler',pos:'MED',team:'Turquía',flag:'🇹🇷',val:10},
   {id:'tur2',name:'Hakan Çalhanoğlu',pos:'MED',team:'Turquía',flag:'🇹🇷',val:9},
   {id:'tur3',name:'Kenan Yıldız',pos:'DEL',team:'Turquía',flag:'🇹🇷',val:9},
   {id:'tur4',name:'Baris Alper Yilmaz',pos:'DEL',team:'Turquía',flag:'🇹🇷',val:7},
-  {id:'tur5',name:'Güven Yalçın',pos:'DEL',team:'Turquía',flag:'🇹🇷',val:6},
-  {id:'tur6',name:'Merih Demiral',pos:'DEF',team:'Turquía',flag:'🇹🇷',val:7},
-  {id:'tur7',name:'Mert Müldür',pos:'DEF',team:'Turquía',flag:'🇹🇷',val:6},
-  {id:'tur8',name:'Mert Günok',pos:'POR',team:'Turquía',flag:'🇹🇷',val:6},
-  // SUECIA — Alexander Isak
+  {id:'tur5',name:'Merih Demiral',pos:'DEF',team:'Turquía',flag:'🇹🇷',val:7},
+  {id:'tur6',name:'Mert Günok',pos:'POR',team:'Turquía',flag:'🇹🇷',val:6},
+  // SUECIA
   {id:'swe1',name:'Alexander Isak',pos:'DEL',team:'Suecia',flag:'🇸🇪',val:11},
-  {id:'swe2',name:'Dejan Kulusevski',pos:'MED',team:'Suecia',flag:'🇸🇪',val:9},
-  {id:'swe3',name:'Viktor Gyökeres',pos:'DEL',team:'Suecia',flag:'🇸🇪',val:10},
+  {id:'swe2',name:'Viktor Gyökeres',pos:'DEL',team:'Suecia',flag:'🇸🇪',val:10},
+  {id:'swe3',name:'Dejan Kulusevski',pos:'MED',team:'Suecia',flag:'🇸🇪',val:9},
   {id:'swe4',name:'Emil Forsberg',pos:'MED',team:'Suecia',flag:'🇸🇪',val:6},
-  {id:'swe5',name:'Robin Olsen',pos:'POR',team:'Suecia',flag:'🇸🇪',val:5},
-  {id:'swe6',name:'Victor Lindelöf',pos:'DEF',team:'Suecia',flag:'🇸🇪',val:6},
+  {id:'swe5',name:'Victor Lindelöf',pos:'DEF',team:'Suecia',flag:'🇸🇪',val:6},
+  {id:'swe6',name:'Robin Olsen',pos:'POR',team:'Suecia',flag:'🇸🇪',val:5},
   // NUEVA ZELANDA
   {id:'nzl1',name:'Chris Wood',pos:'DEL',team:'Nueva Zelanda',flag:'🇳🇿',val:6},
   {id:'nzl2',name:'Clayton Lewis',pos:'MED',team:'Nueva Zelanda',flag:'🇳🇿',val:5},
   {id:'nzl3',name:'Finn Surman',pos:'MED',team:'Nueva Zelanda',flag:'🇳🇿',val:5},
   {id:'nzl4',name:'Stefan Marinovic',pos:'POR',team:'Nueva Zelanda',flag:'🇳🇿',val:4},
   {id:'nzl5',name:'Winston Reid',pos:'DEF',team:'Nueva Zelanda',flag:'🇳🇿',val:4},
-  // SERBIA — Vlahovic + Mitrovic
+  // SERBIA
   {id:'srb1',name:'Dušan Vlahović',pos:'DEL',team:'Serbia',flag:'🇷🇸',val:9},
   {id:'srb2',name:'Aleksandar Mitrović',pos:'DEL',team:'Serbia',flag:'🇷🇸',val:8},
   {id:'srb3',name:'Sergej Milinković-Savić',pos:'MED',team:'Serbia',flag:'🇷🇸',val:8},
-  {id:'srb4',name:'Dušan Tadić',pos:'MED',team:'Serbia',flag:'🇷🇸',val:6},
-  {id:'srb5',name:'Predrag Rajković',pos:'POR',team:'Serbia',flag:'🇷🇸',val:6},
-  {id:'srb6',name:'Nikola Milenković',pos:'DEF',team:'Serbia',flag:'🇷🇸',val:6},
-  // AUSTRIA — Alaba + Sabitzer
+  {id:'srb4',name:'Predrag Rajković',pos:'POR',team:'Serbia',flag:'🇷🇸',val:6},
+  {id:'srb5',name:'Nikola Milenković',pos:'DEF',team:'Serbia',flag:'🇷🇸',val:6},
+  // AUSTRIA
   {id:'aut1',name:'David Alaba',pos:'DEF',team:'Austria',flag:'🇦🇹',val:7},
   {id:'aut2',name:'Marcel Sabitzer',pos:'MED',team:'Austria',flag:'🇦🇹',val:7},
   {id:'aut3',name:'Marko Arnautovic',pos:'DEL',team:'Austria',flag:'🇦🇹',val:7},
   {id:'aut4',name:'Christoph Baumgartner',pos:'MED',team:'Austria',flag:'🇦🇹',val:7},
-  {id:'aut5',name:'Konrad Laimer',pos:'MED',team:'Austria',flag:'🇦🇹',val:7},
+  {id:'aut5',name:'Kevin Danso',pos:'DEF',team:'Austria',flag:'🇦🇹',val:7},
   {id:'aut6',name:'Patrick Pentz',pos:'POR',team:'Austria',flag:'🇦🇹',val:5},
-  {id:'aut7',name:'Kevin Danso',pos:'DEF',team:'Austria',flag:'🇦🇹',val:7},
-  // ECUADOR — Caicedo
+  // ECUADOR
   {id:'ecu1',name:'Moisés Caicedo',pos:'MED',team:'Ecuador',flag:'🇪🇨',val:10},
   {id:'ecu2',name:'Piero Hincapié',pos:'DEF',team:'Ecuador',flag:'🇪🇨',val:8},
   {id:'ecu3',name:'Gonzalo Plata',pos:'DEL',team:'Ecuador',flag:'🇪🇨',val:7},
   {id:'ecu4',name:'Enner Valencia',pos:'DEL',team:'Ecuador',flag:'🇪🇨',val:6},
   {id:'ecu5',name:'Alexander Domínguez',pos:'POR',team:'Ecuador',flag:'🇪🇨',val:5},
-  // NIGERIA — Osimhen
+  // NIGERIA
   {id:'nga1',name:'Victor Osimhen',pos:'DEL',team:'Nigeria',flag:'🇳🇬',val:11},
-  {id:'nga2',name:'Moses Simon',pos:'DEL',team:'Nigeria',flag:'🇳🇬',val:7},
+  {id:'nga2',name:'Samuel Chukwueze',pos:'DEL',team:'Nigeria',flag:'🇳🇬',val:7},
   {id:'nga3',name:'Alex Iwobi',pos:'MED',team:'Nigeria',flag:'🇳🇬',val:7},
-  {id:'nga4',name:'Samuel Chukwueze',pos:'DEL',team:'Nigeria',flag:'🇳🇬',val:7},
+  {id:'nga4',name:'Moses Simon',pos:'DEL',team:'Nigeria',flag:'🇳🇬',val:7},
   {id:'nga5',name:'William Troost-Ekong',pos:'DEF',team:'Nigeria',flag:'🇳🇬',val:6},
   {id:'nga6',name:'Francis Uzoho',pos:'POR',team:'Nigeria',flag:'🇳🇬',val:5},
-  // MARRUECOS — Hakimi + Ziyech
+  // MARRUECOS
   {id:'mar1',name:'Achraf Hakimi',pos:'DEF',team:'Marruecos',flag:'🇲🇦',val:9},
-  {id:'mar2',name:'Hakim Ziyech',pos:'MED',team:'Marruecos',flag:'🇲🇦',val:7},
-  {id:'mar3',name:'Sofiane Boufal',pos:'DEL',team:'Marruecos',flag:'🇲🇦',val:6},
-  {id:'mar4',name:'Bilal El Khannouss',pos:'MED',team:'Marruecos',flag:'🇲🇦',val:8},
-  {id:'mar5',name:'Youssef En-Nesyri',pos:'DEL',team:'Marruecos',flag:'🇲🇦',val:8},
-  {id:'mar6',name:'Yassine Bounou',pos:'POR',team:'Marruecos',flag:'🇲🇦',val:8},
-  // COREA DEL SUR — Son Heung-min + Lee Kang-in
+  {id:'mar2',name:'Youssef En-Nesyri',pos:'DEL',team:'Marruecos',flag:'🇲🇦',val:8},
+  {id:'mar3',name:'Bilal El Khannouss',pos:'MED',team:'Marruecos',flag:'🇲🇦',val:8},
+  {id:'mar4',name:'Hakim Ziyech',pos:'MED',team:'Marruecos',flag:'🇲🇦',val:7},
+  {id:'mar5',name:'Yassine Bounou',pos:'POR',team:'Marruecos',flag:'🇲🇦',val:8},
+  // COREA DEL SUR
   {id:'kor1',name:'Son Heung-min',pos:'DEL',team:'Corea del Sur',flag:'🇰🇷',val:10},
   {id:'kor2',name:'Lee Kang-in',pos:'MED',team:'Corea del Sur',flag:'🇰🇷',val:9},
-  {id:'kor3',name:'Hwang Hee-chan',pos:'DEL',team:'Corea del Sur',flag:'🇰🇷',val:7},
-  {id:'kor4',name:'Kim Min-jae',pos:'DEF',team:'Corea del Sur',flag:'🇰🇷',val:9},
+  {id:'kor3',name:'Kim Min-jae',pos:'DEF',team:'Corea del Sur',flag:'🇰🇷',val:9},
+  {id:'kor4',name:'Hwang Hee-chan',pos:'DEL',team:'Corea del Sur',flag:'🇰🇷',val:7},
   {id:'kor5',name:'Jo Hyeon-woo',pos:'POR',team:'Corea del Sur',flag:'🇰🇷',val:5},
-  // EGIPTO — Salah
+  // EGIPTO
   {id:'egy1',name:'Mohamed Salah',pos:'DEL',team:'Egipto',flag:'🇪🇬',val:11},
   {id:'egy2',name:'Mostafa Mohamed',pos:'DEL',team:'Egipto',flag:'🇪🇬',val:7},
-  {id:'egy3',name:'Tarek Hamed',pos:'MED',team:'Egipto',flag:'🇪🇬',val:5},
-  {id:'egy4',name:'Mohamed Abou Gabal',pos:'POR',team:'Egipto',flag:'🇪🇬',val:6},
-  // COLOMBIA — Díaz + James
+  {id:'egy3',name:'Mohamed Abou Gabal',pos:'POR',team:'Egipto',flag:'🇪🇬',val:6},
+  // COLOMBIA
   {id:'col1',name:'Luis Díaz',pos:'DEL',team:'Colombia',flag:'🇨🇴',val:10},
-  {id:'col2',name:'James Rodríguez',pos:'MED',team:'Colombia',flag:'🇨🇴',val:7},
-  {id:'col3',name:'Richard Ríos',pos:'MED',team:'Colombia',flag:'🇨🇴',val:8},
+  {id:'col2',name:'Richard Ríos',pos:'MED',team:'Colombia',flag:'🇨🇴',val:8},
+  {id:'col3',name:'James Rodríguez',pos:'MED',team:'Colombia',flag:'🇨🇴',val:7},
   {id:'col4',name:'Jhon Córdoba',pos:'DEL',team:'Colombia',flag:'🇨🇴',val:7},
   {id:'col5',name:'Davinson Sánchez',pos:'DEF',team:'Colombia',flag:'🇨🇴',val:6},
   {id:'col6',name:'Camilo Vargas',pos:'POR',team:'Colombia',flag:'🇨🇴',val:6},
-  // VENEZUELA — Soteldo + Herrera
+  // VENEZUELA
   {id:'ven1',name:'Yangel Herrera',pos:'MED',team:'Venezuela',flag:'🇻🇪',val:8},
   {id:'ven2',name:'Yeferson Soteldo',pos:'DEL',team:'Venezuela',flag:'🇻🇪',val:7},
   {id:'ven3',name:'Salomón Rondón',pos:'DEL',team:'Venezuela',flag:'🇻🇪',val:6},
   {id:'ven4',name:'Wuilker Fariñez',pos:'POR',team:'Venezuela',flag:'🇻🇪',val:6},
-  {id:'ven5',name:'Jon Aramburu',pos:'DEF',team:'Venezuela',flag:'🇻🇪',val:6},
-  // GHANA — Kudus
+  // GHANA
   {id:'gha1',name:'Mohammed Kudus',pos:'MED',team:'Ghana',flag:'🇬🇭',val:9},
   {id:'gha2',name:'Thomas Partey',pos:'MED',team:'Ghana',flag:'🇬🇭',val:7},
   {id:'gha3',name:'Jordan Ayew',pos:'DEL',team:'Ghana',flag:'🇬🇭',val:6},
   {id:'gha4',name:'Lawrence Ati-Zigi',pos:'POR',team:'Ghana',flag:'🇬🇭',val:5},
-  // IRÁN — Taremi
+  // IRÁN
   {id:'irn1',name:'Mehdi Taremi',pos:'DEL',team:'Irán',flag:'🇮🇷',val:8},
   {id:'irn2',name:'Sardar Azmoun',pos:'DEL',team:'Irán',flag:'🇮🇷',val:7},
   {id:'irn3',name:'Alireza Jahanbakhsh',pos:'MED',team:'Irán',flag:'🇮🇷',val:6},
   {id:'irn4',name:'Alireza Beiranvand',pos:'POR',team:'Irán',flag:'🇮🇷',val:6},
-  // ARABIA SAUDITA
-  {id:'ksa1',name:'Salem Al-Dawsari',pos:'DEL',team:'Arabia Saudita',flag:'🇸🇦',val:7},
-  {id:'ksa2',name:'Mohammed Al-Owais',pos:'POR',team:'Arabia Saudita',flag:'🇸🇦',val:6},
-  {id:'ksa3',name:'Ali Al-Bulaihi',pos:'DEF',team:'Arabia Saudita',flag:'🇸🇦',val:5},
-  // AUSTRALIA
-  {id:'aus1',name:'Mathew Leckie',pos:'DEL',team:'Australia',flag:'🇦🇺',val:6},
-  {id:'aus2',name:'Ajdin Hrustic',pos:'MED',team:'Australia',flag:'🇦🇺',val:6},
-  {id:'aus3',name:'Harry Souttar',pos:'DEF',team:'Australia',flag:'🇦🇺',val:6},
-  {id:'aus4',name:'Mat Ryan',pos:'POR',team:'Australia',flag:'🇦🇺',val:6},
-  // SUIZA — Xhaka + Embolo
-  {id:'sui1',name:'Granit Xhaka',pos:'MED',team:'Suiza',flag:'🇨🇭',val:7},
-  {id:'sui2',name:'Breel Embolo',pos:'DEL',team:'Suiza',flag:'🇨🇭',val:7},
-  {id:'sui3',name:'Xherdan Shaqiri',pos:'DEL',team:'Suiza',flag:'🇨🇭',val:6},
-  {id:'sui4',name:'Manuel Akanji',pos:'DEF',team:'Suiza',flag:'🇨🇭',val:7},
-  {id:'sui5',name:'Yann Sommer',pos:'POR',team:'Suiza',flag:'🇨🇭',val:7},
-  // DINAMARCA — Eriksen + Højlund
+  // POLONIA
+  {id:'pol1',name:'Robert Lewandowski',pos:'DEL',team:'Polonia',flag:'🇵🇱',val:9},
+  {id:'pol2',name:'Piotr Zieliński',pos:'MED',team:'Polonia',flag:'🇵🇱',val:7},
+  {id:'pol3',name:'Wojciech Szczęsny',pos:'POR',team:'Polonia',flag:'🇵🇱',val:7},
+  // UCRANIA
+  {id:'ukr1',name:'Mykhailo Mudryk',pos:'DEL',team:'Ucrania',flag:'🇺🇦',val:8},
+  {id:'ukr2',name:'Oleksandr Zinchenko',pos:'DEF',team:'Ucrania',flag:'🇺🇦',val:7},
+  {id:'ukr3',name:'Andriy Lunin',pos:'POR',team:'Ucrania',flag:'🇺🇦',val:7},
+  // DINAMARCA
   {id:'den1',name:'Rasmus Højlund',pos:'DEL',team:'Dinamarca',flag:'🇩🇰',val:9},
   {id:'den2',name:'Christian Eriksen',pos:'MED',team:'Dinamarca',flag:'🇩🇰',val:7},
   {id:'den3',name:'Pierre-Emile Højbjerg',pos:'MED',team:'Dinamarca',flag:'🇩🇰',val:7},
   {id:'den4',name:'Andreas Christensen',pos:'DEF',team:'Dinamarca',flag:'🇩🇰',val:7},
   {id:'den5',name:'Kasper Schmeichel',pos:'POR',team:'Dinamarca',flag:'🇩🇰',val:6},
-  // POLONIA — Lewandowski
-  {id:'pol1',name:'Robert Lewandowski',pos:'DEL',team:'Polonia',flag:'🇵🇱',val:9},
-  {id:'pol2',name:'Piotr Zieliński',pos:'MED',team:'Polonia',flag:'🇵🇱',val:7},
-  {id:'pol3',name:'Wojciech Szczęsny',pos:'POR',team:'Polonia',flag:'🇵🇱',val:7},
-  {id:'pol4',name:'Jan Bednarek',pos:'DEF',team:'Polonia',flag:'🇵🇱',val:5},
-  // UCRANIA — Mudryk
-  {id:'ukr1',name:'Mykhailo Mudryk',pos:'DEL',team:'Ucrania',flag:'🇺🇦',val:8},
-  {id:'ukr2',name:'Oleksandr Zinchenko',pos:'DEF',team:'Ucrania',flag:'🇺🇦',val:7},
-  {id:'ukr3',name:'Andriy Lunin',pos:'POR',team:'Ucrania',flag:'🇺🇦',val:7},
-  {id:'ukr4',name:'Illia Zabarnyi',pos:'DEF',team:'Ucrania',flag:'🇺🇦',val:7},
+  // SUIZA
+  {id:'sui1',name:'Granit Xhaka',pos:'MED',team:'Suiza',flag:'🇨🇭',val:7},
+  {id:'sui2',name:'Breel Embolo',pos:'DEL',team:'Suiza',flag:'🇨🇭',val:7},
+  {id:'sui3',name:'Manuel Akanji',pos:'DEF',team:'Suiza',flag:'🇨🇭',val:7},
+  {id:'sui4',name:'Yann Sommer',pos:'POR',team:'Suiza',flag:'🇨🇭',val:7},
   // ESCOCIA
-  {id:'sco1',name:'Andy Robertson',pos:'DEF',team:'Escocia',flag:'🏴󠁧󠁢󠁳󠁣󠁴󠁿',val:7},
-  {id:'sco2',name:'Scott McTominay',pos:'MED',team:'Escocia',flag:'🏴󠁧󠁢󠁳󠁣󠁴󠁿',val:8},
+  {id:'sco1',name:'Scott McTominay',pos:'MED',team:'Escocia',flag:'🏴󠁧󠁢󠁳󠁣󠁴󠁿',val:8},
+  {id:'sco2',name:'Andy Robertson',pos:'DEF',team:'Escocia',flag:'🏴󠁧󠁢󠁳󠁣󠁴󠁿',val:7},
   {id:'sco3',name:'Che Adams',pos:'DEL',team:'Escocia',flag:'🏴󠁧󠁢󠁳󠁣󠁴󠁿',val:6},
   {id:'sco4',name:'Angus Gunn',pos:'POR',team:'Escocia',flag:'🏴󠁧󠁢󠁳󠁣󠁴󠁿',val:5},
-  // COSTA RICA
-  {id:'crc1',name:'Keylor Navas',pos:'POR',team:'Costa Rica',flag:'🇨🇷',val:6},
-  {id:'crc2',name:'Joel Campbell',pos:'DEL',team:'Costa Rica',flag:'🇨🇷',val:5},
-  {id:'crc3',name:'Bryan Ruiz',pos:'MED',team:'Costa Rica',flag:'🇨🇷',val:4},
-  // PANAMA
-  {id:'pan1',name:'Adalberto Carrasquilla',pos:'MED',team:'Panamá',flag:'🇵🇦',val:6},
-  {id:'pan2',name:'Rolando Blackburn',pos:'DEL',team:'Panamá',flag:'🇵🇦',val:5},
-  {id:'pan3',name:'Luis Mejía',pos:'POR',team:'Panamá',flag:'🇵🇦',val:5},
-  // JAMAICA
-  {id:'jam1',name:'Michail Antonio',pos:'DEL',team:'Jamaica',flag:'🇯🇲',val:6},
-  {id:'jam2',name:'Bobby Reid',pos:'MED',team:'Jamaica',flag:'🇯🇲',val:5},
-  {id:'jam3',name:'Andre Blake',pos:'POR',team:'Jamaica',flag:'🇯🇲',val:5},
-  // ARGELIA — Mahrez
-  {id:'alg1',name:'Riyad Mahrez',pos:'DEL',team:'Argelia',flag:'🇩🇿',val:8},
-  {id:'alg2',name:'Sofiane Feghouli',pos:'MED',team:'Argelia',flag:'🇩🇿',val:5},
-  {id:'alg3',name:'Rais M'Bolhi',pos:'POR',team:'Argelia',flag:'🇩🇿',val:5},
-  // JAPÓN — Kamada + Doan
-  {id:'jpn1',name:'Takumi Minamino',pos:'DEL',team:'Japón',flag:'🇯🇵',val:7},
-  {id:'jpn2',name:'Ritsu Doan',pos:'MED',team:'Japón',flag:'🇯🇵',val:7},
-  {id:'jpn3',name:'Daichi Kamada',pos:'MED',team:'Japón',flag:'🇯🇵',val:7},
-  {id:'jpn4',name:'Wataru Endo',pos:'MED',team:'Japón',flag:'🇯🇵',val:6},
-  {id:'jpn5',name:'Shuichi Gonda',pos:'POR',team:'Japón',flag:'🇯🇵',val:6},
-  // SENEGAL — Mané
+  // SENEGAL
   {id:'sen1',name:'Sadio Mané',pos:'DEL',team:'Senegal',flag:'🇸🇳',val:9},
   {id:'sen2',name:'Ismaïla Sarr',pos:'DEL',team:'Senegal',flag:'🇸🇳',val:7},
   {id:'sen3',name:'Edouard Mendy',pos:'POR',team:'Senegal',flag:'🇸🇳',val:7},
+  // MÉXICO COMPLETO
+  {id:'mex1',name:'Guillermo Ochoa',pos:'POR',team:'México',flag:'🇲🇽',val:7},
+  {id:'mex2',name:'Carlos Acevedo',pos:'POR',team:'México',flag:'🇲🇽',val:5},
+  {id:'mex3',name:'Raúl Rangel',pos:'POR',team:'México',flag:'🇲🇽',val:5},
+  {id:'mex4',name:'Jorge Sánchez',pos:'DEF',team:'México',flag:'🇲🇽',val:6},
+  {id:'mex5',name:'Israel Reyes',pos:'DEF',team:'México',flag:'🇲🇽',val:5},
+  {id:'mex6',name:'César Montes',pos:'DEF',team:'México',flag:'🇲🇽',val:6},
+  {id:'mex7',name:'Johan Vásquez',pos:'DEF',team:'México',flag:'🇲🇽',val:6},
+  {id:'mex8',name:'Jesús Gallardo',pos:'DEF',team:'México',flag:'🇲🇽',val:6},
+  {id:'mex9',name:'Mateo Chávez',pos:'DEF',team:'México',flag:'🇲🇽',val:5},
+  {id:'mex10',name:'Edson Álvarez',pos:'DEF',team:'México',flag:'🇲🇽',val:8},
+  {id:'mex11',name:'Erik Lira',pos:'MED',team:'México',flag:'🇲🇽',val:6},
+  {id:'mex12',name:'Orbelín Pineda',pos:'MED',team:'México',flag:'🇲🇽',val:7},
+  {id:'mex13',name:'Álvaro Fidalgo',pos:'MED',team:'México',flag:'🇲🇽',val:7},
+  {id:'mex14',name:'Brian Gutiérrez',pos:'MED',team:'México',flag:'🇲🇽',val:6},
+  {id:'mex15',name:'Luis Romo',pos:'MED',team:'México',flag:'🇲🇽',val:6},
+  {id:'mex16',name:'Obed Vargas',pos:'MED',team:'México',flag:'🇲🇽',val:7},
+  {id:'mex17',name:'Gilberto Mora',pos:'MED',team:'México',flag:'🇲🇽',val:7},
+  {id:'mex18',name:'Luis Chávez',pos:'MED',team:'México',flag:'🇲🇽',val:7},
+  {id:'mex19',name:'Roberto Alvarado',pos:'MED',team:'México',flag:'🇲🇽',val:7},
+  {id:'mex20',name:'César Huerta',pos:'MED',team:'México',flag:'🇲🇽',val:6},
+  {id:'mex21',name:'Alexis Vega',pos:'DEL',team:'México',flag:'🇲🇽',val:6},
+  {id:'mex22',name:'Julián Quiñones',pos:'DEL',team:'México',flag:'🇲🇽',val:6},
+  {id:'mex23',name:'Santiago Giménez',pos:'DEL',team:'México',flag:'🇲🇽',val:8},
+  {id:'mex24',name:'Raúl Jiménez',pos:'DEL',team:'México',flag:'🇲🇽',val:7},
+  {id:'mex25',name:'Guillermo Martínez',pos:'DEL',team:'México',flag:'🇲🇽',val:5},
+  {id:'mex26',name:'Armando González',pos:'DEL',team:'México',flag:'🇲🇽',val:5},
 ];
 
 // ══════════════════════════════════════════
@@ -930,10 +889,8 @@ function fb() { return window._fb; }
 function fbReady() {
   return new Promise(resolve => {
     if (window._fb) { resolve(); return; }
-    const check = setInterval(() => {
-      if (window._fb) { clearInterval(check); resolve(); }
-    }, 50);
-    setTimeout(() => { clearInterval(check); resolve(); }, 5000);
+    const t = setInterval(() => { if (window._fb) { clearInterval(t); resolve(); } }, 50);
+    setTimeout(() => { clearInterval(t); resolve(); }, 5000);
   });
 }
 
@@ -942,19 +899,19 @@ async function fbGet(path) {
   try {
     const snap = await fb().get(fb().ref(fb().db, path));
     return snap.exists() ? snap.val() : null;
-  } catch(e) { console.error('fbGet error:', e); return null; }
+  } catch(e) { console.error('fbGet:', e); return null; }
 }
 
 async function fbSet(path, val) {
   await fbReady();
   try { await fb().set(fb().ref(fb().db, path), val); return true; }
-  catch(e) { console.error('fbSet error:', e); return false; }
+  catch(e) { console.error('fbSet:', e); return false; }
 }
 
 async function fbUpdate(path, val) {
   await fbReady();
   try { await fb().update(fb().ref(fb().db, path), val); return true; }
-  catch(e) { console.error('fbUpdate error:', e); return false; }
+  catch(e) { console.error('fbUpdate:', e); return false; }
 }
 
 function fbListen(path, cb) {
@@ -1266,7 +1223,7 @@ function renderDraftList() {
 function selectDraftPlayer(pid) {
   const drafter = getCurrentDrafter();
   if (drafter !== STATE.user) { showToast('⏳ No es tu turno'); return; }
-  if (STATE._pickingInProgress) { showToast('⏳ Procesando...'); return; }
+  if (STATE._picking) { showToast('⏳ Procesando...'); return; }
   const p = JUGADORES.find(j => j.id === pid);
   if (!p) return;
   selectedPickPlayer = p;
@@ -1290,8 +1247,8 @@ function selectDraftPlayer(pid) {
 
 async function confirmPick() {
   if (!selectedPickPlayer) return;
-  if (STATE._pickingInProgress) { showToast('⏳ Procesando...'); return; }
-  STATE._pickingInProgress = true;
+  if (STATE._picking) return;
+  STATE._picking = true;
   const p = selectedPickPlayer;
   const user = STATE.user;
 
@@ -1318,7 +1275,7 @@ async function confirmPick() {
   closeModal('modal-pick');
   showToast(`✅ ${p.name} drafteado`);
   selectedPickPlayer = null;
-  STATE._pickingInProgress = false;
+  STATE._picking = false;
 }
 
 function startTimer() {
@@ -1507,7 +1464,7 @@ function renderPuntos() {
   const jornadas = ['1','2','3','4','5','6','7'];
   const jTab = document.getElementById('jornada-tabs');
   const activeJ = jTab.querySelector('.j-tab.active')?.dataset.j || '1';
-  jTab.innerHTML = [['1','J1'],['2','J2'],['3','J3'],['4','16vos'],['5','8vos'],['6','4tos'],['7','Semi'],['8','Final']].map(([v,l]) =>
+  jTab.innerHTML = [['1','J1'],['2','J2'],['3','J3'],['4','Oct.'],['5','Ctos.'],['6','Semi'],['7','Final']].map(([v,l]) =>
     `<button class="j-tab ${v===activeJ?'active':''}" data-j="${v}" onclick="selectJornada('${v}')">${l}</button>`
   ).join('');
 
