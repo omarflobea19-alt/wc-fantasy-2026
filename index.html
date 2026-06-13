@@ -227,6 +227,16 @@
   .chip-green { background: rgba(46,204,113,0.15); color: var(--green); }
   .chip-red { background: rgba(230,57,70,0.15); color: var(--red); }
   .mt8 { margin-top: 8px; }
+  .matchup-card { background:var(--card); border:1px solid var(--border); border-radius:14px; padding:14px; margin-bottom:10px; }
+  .matchup-vs { display:flex; align-items:center; gap:10px; }
+  .matchup-team { flex:1; text-align:center; }
+  .matchup-score { font-size:24px; font-weight:900; color:var(--gold); min-width:50px; text-align:center; }
+  .matchup-name { font-size:14px; font-weight:700; }
+  .matchup-pts { font-size:12px; color:var(--text2); }
+  .matchup-winner { color:var(--green); font-size:11px; font-weight:700; }
+  .record-badge { font-size:11px; padding:2px 8px; border-radius:10px; }
+  .w-badge { background:rgba(46,204,113,0.2); color:var(--green); }
+  .l-badge { background:rgba(230,57,70,0.2); color:var(--red); }
   .mt16 { margin-top: 16px; }
   .scroll-x { overflow-x: auto; scrollbar-width: none; }
   .scroll-x::-webkit-scrollbar { display: none; }
@@ -445,6 +455,30 @@
   <div id="liga-table"></div>
 </div>
 
+<!-- ══════════ SCREEN: RIVALS ══════════ -->
+<div class="screen" id="s-rivals">
+  <div class="topbar">
+    <div>
+      <div class="topbar-title">⚔️ ENFRENTAMIENTOS</div>
+      <div class="topbar-sub" id="rivals-jornada-label">Jornada actual</div>
+    </div>
+    <div id="rivals-my-record" class="chip chip-gold">0W - 0L</div>
+  </div>
+
+  <div style="padding:14px 18px 0">
+    <div style="font-size:11px;color:var(--text2);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px">Mi enfrentamiento esta jornada</div>
+    <div id="my-matchup-card" style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:16px;margin-bottom:16px">
+      <div style="color:var(--text2);font-size:13px;text-align:center">Sin enfrentamiento asignado</div>
+    </div>
+
+    <div style="font-size:11px;color:var(--text2);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px">Todos los enfrentamientos</div>
+    <div id="all-matchups-list"></div>
+
+    <div style="font-size:11px;color:var(--text2);text-transform:uppercase;letter-spacing:1px;margin:16px 0 10px">Tabla acumulada</div>
+    <div id="rivals-standings"></div>
+  </div>
+</div>
+
 <!-- ══════════ SCREEN: ADMIN ══════════ -->
 <div class="screen" id="s-admin">
   <div class="topbar">
@@ -485,6 +519,29 @@
     <div class="admin-title">👥 Gestión de jugadores</div>
     <div id="adm-users-list"></div>
 
+    <div class="admin-title">⚔️ Enfrentamientos</div>
+    <div class="admin-card">
+      <div class="admin-card-title">Crear enfrentamiento manual</div>
+      <div class="admin-row">
+        <span class="admin-label">Jornada</span>
+        <select class="admin-inp" id="adm-match-j">
+          <option value="1">J1</option><option value="2">J2</option><option value="3">J3</option>
+          <option value="4">16vos</option><option value="5">8vos</option><option value="6">4tos</option>
+          <option value="7">Semi</option><option value="8">Final</option>
+        </select>
+      </div>
+      <div class="admin-row">
+        <span class="admin-label">Local</span>
+        <select class="admin-inp" id="adm-match-home"></select>
+      </div>
+      <div class="admin-row">
+        <span class="admin-label">Visitante</span>
+        <select class="admin-inp" id="adm-match-away"></select>
+      </div>
+      <button class="btn btn-gold mt8" onclick="createMatchup()" style="width:100%">➕ Crear enfrentamiento</button>
+    </div>
+    <div id="adm-matchups-list" style="margin-bottom:16px"></div>
+
     <div class="admin-title">🔄 Control del Draft</div>
     <div class="admin-card">
       <button class="btn btn-green btn-sm" style="width:100%;margin-bottom:8px" onclick="adminOpenDraft()">Abrir sala de Draft</button>
@@ -510,6 +567,10 @@
   <div class="nav-item" id="nav-liga" onclick="goTo('liga')">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/></svg>
     Liga
+  </div>
+  <div class="nav-item" id="nav-rivals" onclick="goTo('rivals')">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/></svg>
+    Rivals
   </div>
   <div class="nav-item" id="nav-admin" onclick="goTo('admin')" style="display:none">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>
@@ -675,25 +736,73 @@ const JUGADORES = [
   {id:'col3',name:'Richard Ríos',pos:'MED',team:'Colombia',flag:'🇨🇴',val:7},
   {id:'col4',name:'Davinson Sánchez',pos:'DEF',team:'Colombia',flag:'🇨🇴',val:6},
   {id:'col5',name:'Camilo Vargas',pos:'POR',team:'Colombia',flag:'🇨🇴',val:6},
-  // MEXICO
-  {id:'mex1',name:'Hirving Lozano',pos:'DEL',team:'México',flag:'🇲🇽',val:7},
-  {id:'mex2',name:'Alexis Vega',pos:'DEL',team:'México',flag:'🇲🇽',val:6},
-  {id:'mex3',name:'Edson Álvarez',pos:'MED',team:'México',flag:'🇲🇽',val:7},
-  {id:'mex4',name:'Héctor Herrera',pos:'MED',team:'México',flag:'🇲🇽',val:6},
-  {id:'mex5',name:'César Montes',pos:'DEF',team:'México',flag:'🇲🇽',val:5},
-  {id:'mex6',name:'Guillermo Ochoa',pos:'POR',team:'México',flag:'🇲🇽',val:7},
-  // USA
-  {id:'usa1',name:'Christian Pulisic',pos:'DEL',team:'USA',flag:'🇺🇸',val:8},
-  {id:'usa2',name:'Weston McKennie',pos:'MED',team:'USA',flag:'🇺🇸',val:6},
-  {id:'usa3',name:'Tyler Adams',pos:'MED',team:'USA',flag:'🇺🇸',val:6},
-  {id:'usa4',name:'Antonee Robinson',pos:'DEF',team:'USA',flag:'🇺🇸',val:5},
-  {id:'usa5',name:'Matt Turner',pos:'POR',team:'USA',flag:'🇺🇸',val:5},
-  // CANADA
-  {id:'can1',name:'Alphonso Davies',pos:'DEF',team:'Canadá',flag:'🇨🇦',val:8},
-  {id:'can2',name:'Jonathan David',pos:'DEL',team:'Canadá',flag:'🇨🇦',val:8},
-  {id:'can3',name:'Tajon Buchanan',pos:'DEL',team:'Canadá',flag:'🇨🇦',val:6},
-  {id:'can4',name:'Stephen Eustáquio',pos:'MED',team:'Canadá',flag:'🇨🇦',val:6},
-  {id:'can5',name:'Milan Borjan',pos:'POR',team:'Canadá',flag:'🇨🇦',val:6},
+  // MEXICO (Convocatoria oficial 2026)
+  {id:'mex1',name:'Guillermo Ochoa',pos:'POR',team:'México',flag:'🇲🇽',val:7},
+  {id:'mex2',name:'Carlos Acevedo',pos:'POR',team:'México',flag:'🇲🇽',val:5},
+  {id:'mex3',name:'Raúl Rangel',pos:'POR',team:'México',flag:'🇲🇽',val:5},
+  {id:'mex4',name:'Jorge Sánchez',pos:'DEF',team:'México',flag:'🇲🇽',val:6},
+  {id:'mex5',name:'Israel Reyes',pos:'DEF',team:'México',flag:'🇲🇽',val:5},
+  {id:'mex6',name:'César Montes',pos:'DEF',team:'México',flag:'🇲🇽',val:6},
+  {id:'mex7',name:'Johan Vásquez',pos:'DEF',team:'México',flag:'🇲🇽',val:6},
+  {id:'mex8',name:'Jesús Gallardo',pos:'DEF',team:'México',flag:'🇲🇽',val:6},
+  {id:'mex9',name:'Mateo Chávez',pos:'DEF',team:'México',flag:'🇲🇽',val:5},
+  {id:'mex10',name:'Edson Álvarez',pos:'DEF',team:'México',flag:'🇲🇽',val:8},
+  {id:'mex11',name:'Erik Lira',pos:'MED',team:'México',flag:'🇲🇽',val:6},
+  {id:'mex12',name:'Orbelín Pineda',pos:'MED',team:'México',flag:'🇲🇽',val:7},
+  {id:'mex13',name:'Álvaro Fidalgo',pos:'MED',team:'México',flag:'🇲🇽',val:7},
+  {id:'mex14',name:'Brian Gutiérrez',pos:'MED',team:'México',flag:'🇲🇽',val:6},
+  {id:'mex15',name:'Luis Romo',pos:'MED',team:'México',flag:'🇲🇽',val:6},
+  {id:'mex16',name:'Obed Vargas',pos:'MED',team:'México',flag:'🇲🇽',val:7},
+  {id:'mex17',name:'Gilberto Mora',pos:'MED',team:'México',flag:'🇲🇽',val:7},
+  {id:'mex18',name:'Luis Chávez',pos:'MED',team:'México',flag:'🇲🇽',val:7},
+  {id:'mex19',name:'Roberto Alvarado',pos:'MED',team:'México',flag:'🇲🇽',val:7},
+  {id:'mex20',name:'César Huerta',pos:'MED',team:'México',flag:'🇲🇽',val:6},
+  {id:'mex21',name:'Alexis Vega',pos:'DEL',team:'México',flag:'🇲🇽',val:6},
+  {id:'mex22',name:'Julián Quiñones',pos:'DEL',team:'México',flag:'🇲🇽',val:6},
+  {id:'mex23',name:'Guillermo Martínez',pos:'DEL',team:'México',flag:'🇲🇽',val:5},
+  {id:'mex24',name:'Armando González',pos:'DEL',team:'México',flag:'🇲🇽',val:5},
+  {id:'mex25',name:'Santiago Giménez',pos:'DEL',team:'México',flag:'🇲🇽',val:8},
+  {id:'mex26',name:'Raúl Jiménez',pos:'DEL',team:'México',flag:'🇲🇽',val:7},
+  // USA (Official 2026 squad)
+  {id:'usa1',name:'Christian Pulisic',pos:'DEL',team:'USA',flag:'🇺🇸',val:9},
+  {id:'usa2',name:'Weston McKennie',pos:'MED',team:'USA',flag:'🇺🇸',val:7},
+  {id:'usa3',name:'Tyler Adams',pos:'MED',team:'USA',flag:'🇺🇸',val:7},
+  {id:'usa4',name:'Antonee Robinson',pos:'DEF',team:'USA',flag:'🇺🇸',val:6},
+  {id:'usa5',name:'Matt Turner',pos:'POR',team:'USA',flag:'🇺🇸',val:6},
+  {id:'usa6',name:'Chris Brady',pos:'POR',team:'USA',flag:'🇺🇸',val:5},
+  {id:'usa7',name:'Matt Freese',pos:'POR',team:'USA',flag:'🇺🇸',val:5},
+  {id:'usa8',name:'Sergiño Dest',pos:'DEF',team:'USA',flag:'🇺🇸',val:6},
+  {id:'usa9',name:'Chris Richards',pos:'DEF',team:'USA',flag:'🇺🇸',val:6},
+  {id:'usa10',name:'Tim Ream',pos:'DEF',team:'USA',flag:'🇺🇸',val:5},
+  {id:'usa11',name:'Miles Robinson',pos:'DEF',team:'USA',flag:'🇺🇸',val:6},
+  {id:'usa12',name:'Joe Scally',pos:'DEF',team:'USA',flag:'🇺🇸',val:5},
+  {id:'usa13',name:'Auston Trusty',pos:'DEF',team:'USA',flag:'🇺🇸',val:5},
+  {id:'usa14',name:'Gio Reyna',pos:'MED',team:'USA',flag:'🇺🇸',val:7},
+  {id:'usa15',name:'Malik Tillman',pos:'MED',team:'USA',flag:'🇺🇸',val:7},
+  {id:'usa16',name:'Cristian Roldan',pos:'MED',team:'USA',flag:'🇺🇸',val:5},
+  {id:'usa17',name:'Brenden Aaronson',pos:'DEL',team:'USA',flag:'🇺🇸',val:7},
+  {id:'usa18',name:'Folarin Balogun',pos:'DEL',team:'USA',flag:'🇺🇸',val:7},
+  {id:'usa19',name:'Ricardo Pepi',pos:'DEL',team:'USA',flag:'🇺🇸',val:7},
+  {id:'usa20',name:'Tim Weah',pos:'DEL',team:'USA',flag:'🇺🇸',val:6},
+  {id:'usa21',name:'Haji Wright',pos:'DEL',team:'USA',flag:'🇺🇸',val:6},
+  {id:'usa22',name:'Alex Zendejas',pos:'DEL',team:'USA',flag:'🇺🇸',val:6},
+  // CANADA (Official 2026 squad)
+  {id:'can1',name:'Alphonso Davies',pos:'DEF',team:'Canadá',flag:'🇨🇦',val:9},
+  {id:'can2',name:'Jonathan David',pos:'DEL',team:'Canadá',flag:'🇨🇦',val:9},
+  {id:'can3',name:'Tajon Buchanan',pos:'MED',team:'Canadá',flag:'🇨🇦',val:7},
+  {id:'can4',name:'Stephen Eustáquio',pos:'MED',team:'Canadá',flag:'🇨🇦',val:7},
+  {id:'can5',name:'Dayne St Clair',pos:'POR',team:'Canadá',flag:'🇨🇦',val:6},
+  {id:'can6',name:'Maxime Crépeau',pos:'POR',team:'Canadá',flag:'🇨🇦',val:5},
+  {id:'can7',name:'Alistair Johnston',pos:'DEF',team:'Canadá',flag:'🇨🇦',val:6},
+  {id:'can8',name:'Derek Cornelius',pos:'DEF',team:'Canadá',flag:'🇨🇦',val:5},
+  {id:'can9',name:'Richie Laryea',pos:'DEF',team:'Canadá',flag:'🇨🇦',val:5},
+  {id:'can10',name:'Moise Bombito',pos:'DEF',team:'Canadá',flag:'🇨🇦',val:6},
+  {id:'can11',name:'Ismael Koné',pos:'MED',team:'Canadá',flag:'🇨🇦',val:6},
+  {id:'can12',name:'Mathieu Choinière',pos:'MED',team:'Canadá',flag:'🇨🇦',val:6},
+  {id:'can13',name:'Jonathan Osorio',pos:'MED',team:'Canadá',flag:'🇨🇦',val:5},
+  {id:'can14',name:'Liam Millar',pos:'DEL',team:'Canadá',flag:'🇨🇦',val:6},
+  {id:'can15',name:'Cyle Larin',pos:'DEL',team:'Canadá',flag:'🇨🇦',val:6},
+  {id:'can16',name:'Tani Oluwaseyi',pos:'DEL',team:'Canadá',flag:'🇨🇦',val:6},
   // ITALY
   {id:'ita1',name:'Federico Chiesa',pos:'DEL',team:'Italia',flag:'🇮🇹',val:7},
   {id:'ita2',name:'Sandro Tonali',pos:'MED',team:'Italia',flag:'🇮🇹',val:7},
@@ -722,6 +831,175 @@ const JUGADORES = [
   {id:'sen1',name:'Sadio Mané',pos:'DEL',team:'Senegal',flag:'🇸🇳',val:9},
   {id:'sen2',name:'Ismaïla Sarr',pos:'DEL',team:'Senegal',flag:'🇸🇳',val:7},
   {id:'sen3',name:'Edouard Mendy',pos:'POR',team:'Senegal',flag:'🇸🇳',val:7},
+
+  // NORWAY
+  {id:'nor1',name:'Erling Haaland',pos:'DEL',team:'Noruega',flag:'🇳🇴',val:12},
+  {id:'nor2',name:'Martin Ødegaard',pos:'MED',team:'Noruega',flag:'🇳🇴',val:10},
+  {id:'nor3',name:'Alexander Sørloth',pos:'DEL',team:'Noruega',flag:'🇳🇴',val:7},
+  {id:'nor4',name:'Sander Berge',pos:'MED',team:'Noruega',flag:'🇳🇴',val:6},
+  {id:'nor5',name:'Leo Østigård',pos:'DEF',team:'Noruega',flag:'🇳🇴',val:5},
+  {id:'nor6',name:'Ørjan Nyland',pos:'POR',team:'Noruega',flag:'🇳🇴',val:5},
+  // NEW ZEALAND
+  {id:'nzl1',name:'Tim Payne',pos:'DEF',team:'Nueva Zelanda',flag:'🇳🇿',val:5},
+  {id:'nzl2',name:'Chris Wood',pos:'DEL',team:'Nueva Zelanda',flag:'🇳🇿',val:6},
+  {id:'nzl3',name:'Clayton Lewis',pos:'MED',team:'Nueva Zelanda',flag:'🇳🇿',val:5},
+  {id:'nzl4',name:'Stefan Marinovic',pos:'POR',team:'Nueva Zelanda',flag:'🇳🇿',val:4},
+  {id:'nzl5',name:'Winston Reid',pos:'DEF',team:'Nueva Zelanda',flag:'🇳🇿',val:4},
+  // ECUADOR
+  {id:'ecu1',name:'Enner Valencia',pos:'DEL',team:'Ecuador',flag:'🇪🇨',val:7},
+  {id:'ecu2',name:'Moisés Caicedo',pos:'MED',team:'Ecuador',flag:'🇪🇨',val:9},
+  {id:'ecu3',name:'Gonzalo Plata',pos:'DEL',team:'Ecuador',flag:'🇪🇨',val:7},
+  {id:'ecu4',name:'Piero Hincapié',pos:'DEF',team:'Ecuador',flag:'🇪🇨',val:7},
+  {id:'ecu5',name:'Alexander Domínguez',pos:'POR',team:'Ecuador',flag:'🇪🇨',val:5},
+  // CHILE
+  {id:'chi1',name:'Alexis Sánchez',pos:'DEL',team:'Chile',flag:'🇨🇱',val:7},
+  {id:'chi2',name:'Arturo Vidal',pos:'MED',team:'Chile',flag:'🇨🇱',val:6},
+  {id:'chi3',name:'Charles Aránguiz',pos:'MED',team:'Chile',flag:'🇨🇱',val:6},
+  {id:'chi4',name:'Gary Medel',pos:'DEF',team:'Chile',flag:'🇨🇱',val:5},
+  {id:'chi5',name:'Claudio Bravo',pos:'POR',team:'Chile',flag:'🇨🇱',val:5},
+  // PERU
+  {id:'per1',name:'Paolo Guerrero',pos:'DEL',team:'Perú',flag:'🇵🇪',val:6},
+  {id:'per2',name:'Gianluca Lapadula',pos:'DEL',team:'Perú',flag:'🇵🇪',val:6},
+  {id:'per3',name:'Christian Cueva',pos:'MED',team:'Perú',flag:'🇵🇪',val:6},
+  {id:'per4',name:'André Carrillo',pos:'MED',team:'Perú',flag:'🇵🇪',val:6},
+  {id:'per5',name:'Pedro Gallese',pos:'POR',team:'Perú',flag:'🇵🇪',val:6},
+  // VENEZUELA
+  {id:'ven1',name:'Salomón Rondón',pos:'DEL',team:'Venezuela',flag:'🇻🇪',val:6},
+  {id:'ven2',name:'Yeferson Soteldo',pos:'DEL',team:'Venezuela',flag:'🇻🇪',val:7},
+  {id:'ven3',name:'Yangel Herrera',pos:'MED',team:'Venezuela',flag:'🇻🇪',val:7},
+  {id:'ven4',name:'Tomás Rincón',pos:'MED',team:'Venezuela',flag:'🇻🇪',val:5},
+  {id:'ven5',name:'Wuilker Fariñez',pos:'POR',team:'Venezuela',flag:'🇻🇪',val:6},
+  // DENMARK
+  {id:'den1',name:'Christian Eriksen',pos:'MED',team:'Dinamarca',flag:'🇩🇰',val:8},
+  {id:'den2',name:'Pierre-Emile Højbjerg',pos:'MED',team:'Dinamarca',flag:'🇩🇰',val:7},
+  {id:'den3',name:'Rasmus Højlund',pos:'DEL',team:'Dinamarca',flag:'🇩🇰',val:8},
+  {id:'den4',name:'Andreas Christensen',pos:'DEF',team:'Dinamarca',flag:'🇩🇰',val:7},
+  {id:'den5',name:'Kasper Schmeichel',pos:'POR',team:'Dinamarca',flag:'🇩🇰',val:6},
+  // SWITZERLAND
+  {id:'sui1',name:'Xherdan Shaqiri',pos:'DEL',team:'Suiza',flag:'🇨🇭',val:6},
+  {id:'sui2',name:'Granit Xhaka',pos:'MED',team:'Suiza',flag:'🇨🇭',val:7},
+  {id:'sui3',name:'Breel Embolo',pos:'DEL',team:'Suiza',flag:'🇨🇭',val:7},
+  {id:'sui4',name:'Manuel Akanji',pos:'DEF',team:'Suiza',flag:'🇨🇭',val:6},
+  {id:'sui5',name:'Yann Sommer',pos:'POR',team:'Suiza',flag:'🇨🇭',val:7},
+  // AUSTRIA
+  {id:'aut1',name:'David Alaba',pos:'DEF',team:'Austria',flag:'🇦🇹',val:7},
+  {id:'aut2',name:'Marcel Sabitzer',pos:'MED',team:'Austria',flag:'🇦🇹',val:7},
+  {id:'aut3',name:'Marko Arnautovic',pos:'DEL',team:'Austria',flag:'🇦🇹',val:7},
+  {id:'aut4',name:'Patrick Wimmer',pos:'MED',team:'Austria',flag:'🇦🇹',val:6},
+  {id:'aut5',name:'Patrick Pentz',pos:'POR',team:'Austria',flag:'🇦🇹',val:5},
+  // TURKEY
+  {id:'tur1',name:'Arda Güler',pos:'MED',team:'Turquía',flag:'🇹🇷',val:9},
+  {id:'tur2',name:'Hakan Çalhanoğlu',pos:'MED',team:'Turquía',flag:'🇹🇷',val:8},
+  {id:'tur3',name:'Kenan Yıldız',pos:'DEL',team:'Turquía',flag:'🇹🇷',val:8},
+  {id:'tur4',name:'Merih Demiral',pos:'DEF',team:'Turquía',flag:'🇹🇷',val:6},
+  {id:'tur5',name:'Mert Günok',pos:'POR',team:'Turquía',flag:'🇹🇷',val:6},
+  // POLAND
+  {id:'pol1',name:'Robert Lewandowski',pos:'DEL',team:'Polonia',flag:'🇵🇱',val:10},
+  {id:'pol2',name:'Piotr Zieliński',pos:'MED',team:'Polonia',flag:'🇵🇱',val:7},
+  {id:'pol3',name:'Nicola Zalewski',pos:'DEF',team:'Polonia',flag:'🇵🇱',val:6},
+  {id:'pol4',name:'Wojciech Szczęsny',pos:'POR',team:'Polonia',flag:'🇵🇱',val:7},
+  {id:'pol5',name:'Jan Bednarek',pos:'DEF',team:'Polonia',flag:'🇵🇱',val:5},
+  // UKRAINE
+  {id:'ukr1',name:'Oleksandr Zinchenko',pos:'DEF',team:'Ucrania',flag:'🇺🇦',val:7},
+  {id:'ukr2',name:'Mykhailo Mudryk',pos:'DEL',team:'Ucrania',flag:'🇺🇦',val:8},
+  {id:'ukr3',name:'Viktor Tsygankov',pos:'MED',team:'Ucrania',flag:'🇺🇦',val:6},
+  {id:'ukr4',name:'Andriy Lunin',pos:'POR',team:'Ucrania',flag:'🇺🇦',val:7},
+  {id:'ukr5',name:'Illia Zabarnyi',pos:'DEF',team:'Ucrania',flag:'🇺🇦',val:6},
+  // SOUTH KOREA
+  {id:'kor1',name:'Son Heung-min',pos:'DEL',team:'Corea del Sur',flag:'🇰🇷',val:10},
+  {id:'kor2',name:'Lee Kang-in',pos:'MED',team:'Corea del Sur',flag:'🇰🇷',val:8},
+  {id:'kor3',name:'Hwang Hee-chan',pos:'DEL',team:'Corea del Sur',flag:'🇰🇷',val:7},
+  {id:'kor4',name:'Kim Min-jae',pos:'DEF',team:'Corea del Sur',flag:'🇰🇷',val:8},
+  {id:'kor5',name:'Jo Hyeon-woo',pos:'POR',team:'Corea del Sur',flag:'🇰🇷',val:5},
+  // SAUDI ARABIA
+  {id:'ksa1',name:'Salem Al-Dawsari',pos:'DEL',team:'Arabia Saudita',flag:'🇸🇦',val:6},
+  {id:'ksa2',name:'Mohammed Al-Qasem',pos:'MED',team:'Arabia Saudita',flag:'🇸🇦',val:5},
+  {id:'ksa3',name:'Mohammed Al-Owais',pos:'POR',team:'Arabia Saudita',flag:'🇸🇦',val:6},
+  {id:'ksa4',name:'Ali Al-Bulaihi',pos:'DEF',team:'Arabia Saudita',flag:'🇸🇦',val:5},
+  // IRAN
+  {id:'irn1',name:'Sardar Azmoun',pos:'DEL',team:'Irán',flag:'🇮🇷',val:7},
+  {id:'irn2',name:'Mehdi Taremi',pos:'DEL',team:'Irán',flag:'🇮🇷',val:8},
+  {id:'irn3',name:'Alireza Jahanbakhsh',pos:'MED',team:'Irán',flag:'🇮🇷',val:6},
+  {id:'irn4',name:'Alireza Beiranvand',pos:'POR',team:'Irán',flag:'🇮🇷',val:6},
+  {id:'irn5',name:'Majid Hosseini',pos:'DEF',team:'Irán',flag:'🇮🇷',val:5},
+  // AUSTRALIA
+  {id:'aus1',name:'Mathew Leckie',pos:'DEL',team:'Australia',flag:'🇦🇺',val:6},
+  {id:'aus2',name:'Mitchell Duke',pos:'DEL',team:'Australia',flag:'🇦🇺',val:5},
+  {id:'aus3',name:'Ajdin Hrustic',pos:'MED',team:'Australia',flag:'🇦🇺',val:6},
+  {id:'aus4',name:'Harry Souttar',pos:'DEF',team:'Australia',flag:'🇦🇺',val:5},
+  {id:'aus5',name:'Mat Ryan',pos:'POR',team:'Australia',flag:'🇦🇺',val:6},
+  // NIGERIA
+  {id:'nga1',name:'Victor Osimhen',pos:'DEL',team:'Nigeria',flag:'🇳🇬',val:10},
+  {id:'nga2',name:'Kelechi Iheanacho',pos:'DEL',team:'Nigeria',flag:'🇳🇬',val:6},
+  {id:'nga3',name:'Alex Iwobi',pos:'MED',team:'Nigeria',flag:'🇳🇬',val:7},
+  {id:'nga4',name:'William Troost-Ekong',pos:'DEF',team:'Nigeria',flag:'🇳🇬',val:6},
+  {id:'nga5',name:'Francis Uzoho',pos:'POR',team:'Nigeria',flag:'🇳🇬',val:5},
+  // GHANA
+  {id:'gha1',name:'Mohammed Kudus',pos:'MED',team:'Ghana',flag:'🇬🇭',val:8},
+  {id:'gha2',name:'Jordan Ayew',pos:'DEL',team:'Ghana',flag:'🇬🇭',val:6},
+  {id:'gha3',name:'André Ayew',pos:'DEL',team:'Ghana',flag:'🇬🇭',val:6},
+  {id:'gha4',name:'Thomas Partey',pos:'MED',team:'Ghana',flag:'🇬🇭',val:7},
+  {id:'gha5',name:'Lawrence Ati-Zigi',pos:'POR',team:'Ghana',flag:'🇬🇭',val:5},
+  // IVORY COAST
+  {id:'civ1',name:'Sébastien Haller',pos:'DEL',team:'Costa de Marfil',flag:'🇨🇮',val:7},
+  {id:'civ2',name:'Franck Kessié',pos:'MED',team:'Costa de Marfil',flag:'🇨🇮',val:7},
+  {id:'civ3',name:'Nicolas Pépé',pos:'DEL',team:'Costa de Marfil',flag:'🇨🇮',val:6},
+  {id:'civ4',name:'Serge Aurier',pos:'DEF',team:'Costa de Marfil',flag:'🇨🇮',val:5},
+  {id:'civ5',name:'Badra Ali Sangaré',pos:'POR',team:'Costa de Marfil',flag:'🇨🇮',val:5},
+  // EGYPT
+  {id:'egy1',name:'Mohamed Salah',pos:'DEL',team:'Egipto',flag:'🇪🇬',val:11},
+  {id:'egy2',name:'Mostafa Mohamed',pos:'DEL',team:'Egipto',flag:'🇪🇬',val:6},
+  {id:'egy3',name:'Tarek Hamed',pos:'MED',team:'Egipto',flag:'🇪🇬',val:5},
+  {id:'egy4',name:'Mohamed Abou Gabal',pos:'POR',team:'Egipto',flag:'🇪🇬',val:6},
+  {id:'egy5',name:'Ahmed Hegazi',pos:'DEF',team:'Egipto',flag:'🇪🇬',val:5},
+  // ALGERIA
+  {id:'alg1',name:'Riyad Mahrez',pos:'DEL',team:'Argelia',flag:'🇩🇿',val:8},
+  {id:'alg2',name:'Islam Slimani',pos:'DEL',team:'Argelia',flag:'🇩🇿',val:5},
+  {id:'alg3',name:'Sofiane Feghouli',pos:'MED',team:'Argelia',flag:'🇩🇿',val:6},
+  {id:'alg4',name:'Rais M'Bolhi',pos:'POR',team:'Argelia',flag:'🇩🇿',val:5},
+  // SERBIA
+  {id:'srb1',name:'Dušan Vlahović',pos:'DEL',team:'Serbia',flag:'🇷🇸',val:9},
+  {id:'srb2',name:'Aleksandar Mitrović',pos:'DEL',team:'Serbia',flag:'🇷🇸',val:8},
+  {id:'srb3',name:'Sergej Milinković-Savić',pos:'MED',team:'Serbia',flag:'🇷🇸',val:8},
+  {id:'srb4',name:'Predrag Rajković',pos:'POR',team:'Serbia',flag:'🇷🇸',val:6},
+  {id:'srb5',name:'Nikola Milenković',pos:'DEF',team:'Serbia',flag:'🇷🇸',val:6},
+  // SCOTLAND
+  {id:'sco1',name:'Andy Robertson',pos:'DEF',team:'Escocia',flag:'🏴󠁧󠁢󠁳󠁣󠁴󠁿',val:7},
+  {id:'sco2',name:'Scott McTominay',pos:'MED',team:'Escocia',flag:'🏴󠁧󠁢󠁳󠁣󠁴󠁿',val:7},
+  {id:'sco3',name:'Che Adams',pos:'DEL',team:'Escocia',flag:'🏴󠁧󠁢󠁳󠁣󠁴󠁿',val:6},
+  {id:'sco4',name:'Angus Gunn',pos:'POR',team:'Escocia',flag:'🏴󠁧󠁢󠁳󠁣󠁴󠁿',val:5},
+  // WALES
+  {id:'wal1',name:'Gareth Bale',pos:'DEL',team:'Gales',flag:'🏴󠁧󠁢󠁷󠁬󠁳󠁿',val:7},
+  {id:'wal2',name:'Aaron Ramsey',pos:'MED',team:'Gales',flag:'🏴󠁧󠁢󠁷󠁬󠁳󠁿',val:6},
+  {id:'wal3',name:'Daniel James',pos:'DEL',team:'Gales',flag:'🏴󠁧󠁢󠁷󠁬󠁳󠁿',val:6},
+  {id:'wal4',name:'Wayne Hennessey',pos:'POR',team:'Gales',flag:'🏴󠁧󠁢󠁷󠁬󠁳󠁿',val:5},
+  // COSTA RICA
+  {id:'crc1',name:'Bryan Ruiz',pos:'MED',team:'Costa Rica',flag:'🇨🇷',val:5},
+  {id:'crc2',name:'Joel Campbell',pos:'DEL',team:'Costa Rica',flag:'🇨🇷',val:6},
+  {id:'crc3',name:'Keylor Navas',pos:'POR',team:'Costa Rica',flag:'🇨🇷',val:7},
+  {id:'crc4',name:'Kendall Waston',pos:'DEF',team:'Costa Rica',flag:'🇨🇷',val:5},
+  // PANAMA
+  {id:'pan1',name:'Rolando Blackburn',pos:'DEL',team:'Panamá',flag:'🇵🇦',val:5},
+  {id:'pan2',name:'Adalberto Carrasquilla',pos:'MED',team:'Panamá',flag:'🇵🇦',val:5},
+  {id:'pan3',name:'Luis Mejía',pos:'POR',team:'Panamá',flag:'🇵🇦',val:5},
+  {id:'pan4',name:'Fidel Escobar',pos:'DEF',team:'Panamá',flag:'🇵🇦',val:4},
+  // JAMAICA
+  {id:'jam1',name:'Michail Antonio',pos:'DEL',team:'Jamaica',flag:'🇯🇲',val:6},
+  {id:'jam2',name:'Bobby Reid',pos:'MED',team:'Jamaica',flag:'🇯🇲',val:5},
+  {id:'jam3',name:'Andre Blake',pos:'POR',team:'Jamaica',flag:'🇯🇲',val:5},
+  // HONDURAS
+  {id:'hon1',name:'Romell Quioto',pos:'DEL',team:'Honduras',flag:'🇭🇳',val:5},
+  {id:'hon2',name:'Luis Palma',pos:'DEL',team:'Honduras',flag:'🇭🇳',val:6},
+  {id:'hon3',name:'Harold Fonseca',pos:'POR',team:'Honduras',flag:'🇭🇳',val:4},
+  // CHINA
+  {id:'chn1',name:'Wu Lei',pos:'DEL',team:'China',flag:'🇨🇳',val:5},
+  {id:'chn2',name:'Hao Junmin',pos:'MED',team:'China',flag:'🇨🇳',val:4},
+  {id:'chn3',name:'Yan Junling',pos:'POR',team:'China',flag:'🇨🇳',val:4},
+  // QATAR
+  {id:'qat1',name:'Akram Afif',pos:'DEL',team:'Qatar',flag:'🇶🇦',val:6},
+  {id:'qat2',name:'Almoez Ali',pos:'DEL',team:'Qatar',flag:'🇶🇦',val:6},
+  {id:'qat3',name:'Hassan Al-Haydos',pos:'MED',team:'Qatar',flag:'🇶🇦',val:5},
+  {id:'qat4',name:'Saad Al Sheeb',pos:'POR',team:'Qatar',flag:'🇶🇦',val:5},
 ];
 
 // ══════════════════════════════════════════
@@ -859,7 +1137,8 @@ function goTo(screen) {
   if (screen === 'equipo') renderEquipo();
   if (screen === 'puntos') renderPuntos();
   if (screen === 'liga') renderLiga();
-  if (screen === 'admin') renderAdmin();
+  if (screen === 'rivals') renderRivals();
+  if (screen === 'admin') { renderAdmin(); renderAdminMatchups(); }
   if (screen === 'draft') renderDraft();
 }
 
@@ -891,6 +1170,14 @@ function initListeners() {
     if (activeScreen === 's-liga') renderLiga();
     if (activeScreen === 's-equipo') renderEquipo();
     if (activeScreen === 's-admin') renderAdmin();
+  });
+
+  // Matchups
+  fbListen('matchups', data => {
+    STATE.matchups = data || {};
+    const activeScreen = document.querySelector('.screen.active')?.id;
+    if (activeScreen === 's-rivals') renderRivals();
+    if (activeScreen === 's-admin') renderAdminMatchups();
   });
 
   // Stats
@@ -1089,6 +1376,7 @@ function renderDraftList() {
 function selectDraftPlayer(pid) {
   const drafter = getCurrentDrafter();
   if (drafter !== STATE.user) { showToast('⏳ No es tu turno'); return; }
+  if (STATE._pickingInProgress) { showToast('⏳ Procesando tu pick...'); return; }
   const p = JUGADORES.find(j => j.id === pid);
   if (!p) return;
   selectedPickPlayer = p;
@@ -1112,6 +1400,8 @@ function selectDraftPlayer(pid) {
 
 async function confirmPick() {
   if (!selectedPickPlayer) return;
+  if (STATE._pickingInProgress) { showToast('⏳ Procesando...'); return; }
+  STATE._pickingInProgress = true;
   const p = selectedPickPlayer;
   const user = STATE.user;
 
@@ -1138,6 +1428,7 @@ async function confirmPick() {
   closeModal('modal-pick');
   showToast(`✅ ${p.name} drafteado`);
   selectedPickPlayer = null;
+  STATE._pickingInProgress = false;
 }
 
 function startTimer() {
@@ -1560,7 +1851,189 @@ window.addEventListener('load', () => {
   }, 5000);
 });
 
+// ══════════════════════════════════════════
+// RIVALS / ENFRENTAMIENTOS
+// ══════════════════════════════════════════
+function renderRivals() {
+  const matchups = STATE.matchups || {};
+  const users = STATE.users || {};
+  const allJornadas = ['1','2','3','4','5','6','7','8'];
+
+  // Find current active jornada (latest one with matchups)
+  let activeJ = '1';
+  allJornadas.forEach(j => { if (matchups[j]) activeJ = j; });
+  const jLabels = {1:'J1',2:'J2',3:'J3',4:'16vos',5:'8vos',6:'4tos',7:'Semi',8:'Final'};
+  document.getElementById('rivals-jornada-label').textContent = `Jornada ${jLabels[activeJ] || activeJ}`;
+
+  // My matchup this jornada
+  const myMatchCard = document.getElementById('my-matchup-card');
+  const jornadaMatchups = matchups[activeJ] || [];
+  const myMatch = jornadaMatchups.find(m => m.home === STATE.user || m.away === STATE.user);
+
+  if (myMatch) {
+    const homeUser = users[myMatch.home] || {};
+    const awayUser = users[myMatch.away] || {};
+    const homepts = calcUserPts(myMatch.home, activeJ);
+    const awaypts = calcUserPts(myMatch.away, activeJ);
+    const isHome = myMatch.home === STATE.user;
+    const winning = isHome ? homepts > awaypts : awaypts > homepts;
+    myMatchCard.innerHTML = `
+      <div class="matchup-vs">
+        <div class="matchup-team">
+          <div class="matchup-name" style="color:${myMatch.home===STATE.user?'var(--gold)':'var(--text)'}">${homeUser.display||myMatch.home}</div>
+          <div class="matchup-pts">${homepts} pts</div>
+          ${homepts>awaypts?'<div class="matchup-winner">🏆 Ganando</div>':''}
+        </div>
+        <div class="matchup-score">${homepts}<br><span style="font-size:12px;color:var(--text2)">vs</span><br>${awaypts}</div>
+        <div class="matchup-team">
+          <div class="matchup-name" style="color:${myMatch.away===STATE.user?'var(--gold)':'var(--text)'}">${awayUser.display||myMatch.away}</div>
+          <div class="matchup-pts">${awaypts} pts</div>
+          ${awaypts>homepts?'<div class="matchup-winner">🏆 Ganando</div>':''}
+        </div>
+      </div>`;
+  } else {
+    myMatchCard.innerHTML = '<div style="color:var(--text2);font-size:13px;text-align:center;padding:8px">Sin enfrentamiento asignado esta jornada</div>';
+  }
+
+  // All matchups
+  const allList = document.getElementById('all-matchups-list');
+  allList.innerHTML = jornadaMatchups.map(m => {
+    const hu = users[m.home]||{};
+    const au = users[m.away]||{};
+    const hp = calcUserPts(m.home, activeJ);
+    const ap = calcUserPts(m.away, activeJ);
+    return `<div class="matchup-card" onclick="verEquipoRival('${m.home}')">
+      <div style="font-size:10px;color:var(--text2);margin-bottom:8px;text-transform:uppercase;letter-spacing:1px">Jornada ${jLabels[activeJ]}</div>
+      <div class="matchup-vs">
+        <div class="matchup-team">
+          <div class="matchup-name">${hu.display||m.home}</div>
+          <div class="matchup-pts">${hp} pts</div>
+        </div>
+        <div class="matchup-score" style="font-size:18px">${hp} - ${ap}</div>
+        <div class="matchup-team">
+          <div class="matchup-name">${au.display||m.away}</div>
+          <div class="matchup-pts">${ap} pts</div>
+        </div>
+      </div>
+    </div>`;
+  }).join('') || '<div style="color:var(--text2);font-size:13px;padding:16px;text-align:center">Sin enfrentamientos esta jornada</div>';
+
+  // Standings W/L
+  const userList = Object.entries(users).filter(([k])=>k!=='admin');
+  const records = {};
+  userList.forEach(([k])=>{ records[k]={w:0,l:0,pts:0}; });
+
+  allJornadas.forEach(j => {
+    (matchups[j]||[]).forEach(m => {
+      const hp = calcUserPts(m.home, j);
+      const ap = calcUserPts(m.away, j);
+      if (!records[m.home]) records[m.home]={w:0,l:0,pts:0};
+      if (!records[m.away]) records[m.away]={w:0,l:0,pts:0};
+      records[m.home].pts += hp;
+      records[m.away].pts += ap;
+      if (hp > ap) { records[m.home].w++; records[m.away].l++; }
+      else if (ap > hp) { records[m.away].w++; records[m.home].l++; }
+    });
+  });
+
+  // My record
+  const myRec = records[STATE.user] || {w:0,l:0};
+  document.getElementById('rivals-my-record').textContent = `${myRec.w}W - ${myRec.l}L`;
+
+  const sorted = userList.sort((a,b) => {
+    const ra = records[a[0]]||{w:0,l:0,pts:0};
+    const rb = records[b[0]]||{w:0,l:0,pts:0};
+    if (rb.w !== ra.w) return rb.w - ra.w;
+    return rb.pts - ra.pts;
+  });
+
+  document.getElementById('rivals-standings').innerHTML = sorted.map(([key,u],i) => {
+    const r = records[key]||{w:0,l:0,pts:0};
+    return `<div class="liga-row ${key===STATE.user?'me':''}" onclick="verEquipoRival('${key}')">
+      <div class="liga-pos ${i<3?'top3':''}">${i===0?'🥇':i===1?'🥈':i===2?'🥉':i+1}</div>
+      <div class="liga-avatar">${(u.display||key)[0]?.toUpperCase()}</div>
+      <div class="liga-info">
+        <div class="liga-name">${u.display||key} ${key===STATE.user?'(tú)':''}</div>
+        <div class="liga-detail">
+          <span class="record-badge w-badge">${r.w}W</span>
+          <span class="record-badge l-badge" style="margin-left:4px">${r.l}L</span>
+          · ${r.pts} pts total
+        </div>
+      </div>
+      <div class="liga-pts">${r.w*3 + (0)} <span style="font-size:11px;color:var(--text2)">pts liga</span></div>
+    </div>`;
+  }).join('') || '<div style="color:var(--text2);padding:16px;text-align:center">Sin datos</div>';
+}
+
+function calcUserPts(userKey, jornada) {
+  const u = STATE.users[userKey] || {};
+  const squad = (u.squad||[]).map(id=>JUGADORES.find(j=>j.id===id)).filter(Boolean);
+  const capt = u.captain;
+  const vice = u.vice;
+  let total = 0;
+  squad.forEach(p => {
+    const stat = (STATE.stats[p.id]||{})[jornada] || {};
+    let pts = calcPoints(stat, p.pos);
+    if (p.id === capt) pts *= 2;
+    else if (p.id === vice) pts *= 1.5;
+    total += pts;
+  });
+  return Math.round(total);
+}
+
+// Admin matchup management
+async function renderAdminMatchups() {
+  const matchups = STATE.matchups || {};
+  const users = Object.keys(STATE.users||{}).filter(k=>k!=='admin');
+  
+  // Populate selects
+  ['adm-match-home','adm-match-away'].forEach(id => {
+    const sel = document.getElementById(id);
+    if (sel) sel.innerHTML = users.map(u=>`<option value="${u}">${STATE.users[u]?.display||u}</option>`).join('');
+  });
+
+  // List existing matchups
+  const listEl = document.getElementById('adm-matchups-list');
+  if (!listEl) return;
+  const jLabels = {1:'J1',2:'J2',3:'J3',4:'16vos',5:'8vos',6:'4tos',7:'Semi',8:'Final'};
+  let html = '';
+  Object.entries(matchups).forEach(([j, list]) => {
+    (list||[]).forEach((m,i) => {
+      const hu = STATE.users[m.home]?.display||m.home;
+      const au = STATE.users[m.away]?.display||m.away;
+      html += `<div style="display:flex;align-items:center;gap:8px;padding:8px 12px;background:var(--bg3);border-radius:8px;margin-bottom:6px;font-size:13px">
+        <span class="chip chip-gold">${jLabels[j]}</span>
+        <span style="flex:1">${hu} vs ${au}</span>
+        <button class="btn-sm btn-red" onclick="deleteMatchup('${j}',${i})">🗑</button>
+      </div>`;
+    });
+  });
+  listEl.innerHTML = html || '<div style="color:var(--text2);font-size:12px;padding:8px">Sin enfrentamientos creados</div>';
+}
+
+async function createMatchup() {
+  const j = document.getElementById('adm-match-j').value;
+  const home = document.getElementById('adm-match-home').value;
+  const away = document.getElementById('adm-match-away').value;
+  if (home === away) { showToast('⚠️ Selecciona equipos diferentes'); return; }
+  
+  const current = (await fbGet(`matchups/${j}`)) || [];
+  current.push({ home, away });
+  await fbSet(`matchups/${j}`, current);
+  showToast(`✅ Enfrentamiento creado: J${j}`);
+  renderAdminMatchups();
+}
+
+async function deleteMatchup(j, idx) {
+  const list = (await fbGet(`matchups/${j}`)) || [];
+  list.splice(idx, 1);
+  await fbSet(`matchups/${j}`, list);
+  showToast('🗑 Eliminado');
+  renderAdminMatchups();
+}
+
 // Expose functions globally
+
 window.switchTab=switchTab; window.doLogin=doLogin; window.doRegister=doRegister;
 window.goTo=goTo; window.iniciarSorteo=iniciarSorteo; window.ejecutarSorteo=ejecutarSorteo;
 window.confirmarDraft=confirmarDraft; window.setFilter=setFilter; window.selectDraftPlayer=selectDraftPlayer;
@@ -1569,6 +2042,8 @@ window.verEquipoRival=verEquipoRival; window.adminSearchPlayer=adminSearchPlayer
 window.selectAdminPlayer=selectAdminPlayer; window.savePlayerStats=savePlayerStats;
 window.deleteUser=deleteUser; window.adminOpenDraft=adminOpenDraft; window.resetDraft=resetDraft;
 window.playerAction=playerAction;
+window.createMatchup=createMatchup; window.deleteMatchup=deleteMatchup;
+window.renderRivals=renderRivals; window.renderAdminMatchups=renderAdminMatchups;
 </script>
 </body>
 </html>
